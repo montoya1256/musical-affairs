@@ -4,6 +4,7 @@ import { getRandomArtist } from "../../store/artists";
 
 function RandomArtist() {
   const dispatch = useDispatch();
+  const randomArtist = useSelector((state) => state.artists.artist[0]);
 
   useEffect(() => {
     dispatch(getRandomArtist());
@@ -12,6 +13,8 @@ function RandomArtist() {
   return (
     <div>
       <h1>randomArtist</h1>
+      <h3>{randomArtist?.name}</h3>
+      <img src={randomArtist?.profile_pic}></img>
     </div>
   );
 }
