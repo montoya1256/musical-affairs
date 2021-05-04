@@ -74,6 +74,13 @@ class FavoriteArtist(db.Model):
     userId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     artistId = db.Column(db.Integer, db.ForeignKey("artists.id"), nullable=False)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "userId": self.userId,
+            "artistId": self.artistId,
+        }
+
 
 # favoriteArtists = db.Table(
 #     "favorites",
