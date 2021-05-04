@@ -45,6 +45,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true}>
           <h1>My Home Page</h1>
+          <a href="/artist">pick an artist</a>
+        </ProtectedRoute>
+        <ProtectedRoute path="/artist" exact={true}>
           <RandomArtist />
         </ProtectedRoute>
       </Switch>
