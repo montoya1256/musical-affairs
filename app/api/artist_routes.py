@@ -29,5 +29,5 @@ def all_artist():
 @login_required
 def random_artist():
     id = randrange(460)
-    artists = Artist.query.filter_by(id=id)
-    return {"artists": [artist.to_dict() for artist in artists]}
+    artist = Artist.query.filter_by(id=id)
+    return {"artist": [artistt.to_dict() for artistt in artist]}
