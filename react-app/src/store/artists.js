@@ -32,7 +32,7 @@ export const getRandomArtist = () => async (dispatch) => {
 };
 
 export const showFavorites = () => async (dispatch) => {
-  const res = await fetch("/api/favorites");
+  const res = await fetch("/api/artists/favorites/");
   const favorites = await res.json();
   dispatch(getFavorites(favorites.favorites));
   return favorites.favorites;
@@ -40,7 +40,7 @@ export const showFavorites = () => async (dispatch) => {
 
 export const addToFavorites = (favArtist) => async (dispatch) => {
   const { artistId, userId } = favArtist;
-  const res = await fetch("/api/favorites/", {
+  const res = await fetch("/api/artists/favorites/", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ artistId, userId }),
