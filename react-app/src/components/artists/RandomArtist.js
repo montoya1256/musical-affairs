@@ -10,11 +10,26 @@ function RandomArtist() {
     dispatch(getRandomArtist());
   }, [dispatch]);
 
+  const handleLike = (e) => {
+    e.preventDefault();
+    dispatch(getRandomArtist());
+  };
+  const handleDisLike = (e) => {
+    e.preventDefault();
+    dispatch(getRandomArtist());
+  };
+
   return (
     <div>
       <h1>randomArtist</h1>
       <h3>{randomArtist?.name}</h3>
+      <button onClick={handleDisLike} type="button">
+        DisLike
+      </button>
       <img src={randomArtist?.profile_pic}></img>
+      <button onClick={handleLike} type="button">
+        Like
+      </button>
     </div>
   );
 }

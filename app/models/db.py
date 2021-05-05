@@ -1,9 +1,17 @@
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from sqlalchemy.orm import relationship, backref
 from datetime import datetime
 
 db = SQLAlchemy()
+
+
+favoriteArtists = db.Table(
+    "favorites",
+    db.Column("artist_id", db.Integer, db.ForeignKey("artists.id"), primary_key=True),
+    db.Column("user_id", db.Integer, db.ForeignKey("users.id"), primary_key=True),
+)
 
 
 class User(db.Model, UserMixin):
@@ -20,10 +28,11 @@ class User(db.Model, UserMixin):
     preffered_gender = db.Column(db.String(15), nullable=False)
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    # associations
-    # user_favorites = db.relationship(
-    #     "favoriteArtists", backref="favorite_artists", cascade="all, delete"
-    # )
+    favArtist = db.relationship(
+        "Artist",
+        secondary="favorites",
+        backref=db.backref("favoriteArtist", lazy="dynamic"),
+    )
 
     @property
     def password(self):
@@ -67,19 +76,22 @@ class Artist(db.Model):
         }
 
 
-class FavoriteArtist(db.Model):
-    __tablename__ = "favoriteArtists"
+# class FavoriteArtist(db.Model):
+#     __tablename__ = "favoriteArtists"
 
-    id = db.Column(db.Integer, primary_key=True)
-    userId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    artistId = db.Column(db.Integer, db.ForeignKey("artists.id"), nullable=False)
+#     id = db.Column(db.Integer, primary_key=True)
+#     userId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+#     artistId = db.Column(db.Integer, db.ForeignKey("artists.id"), nullable=False)
 
+#     # user = relationship("User", backref="artists", cascade="all, delete-orphan")
+#     # artists = relationship("Artist", backref="users", cascade="all, delete-orphan")
 
-# favoriteArtists = db.Table(
-#     "favorites",
-#     db.Column("artist_id", db.Integer, db.ForeignKey("artists.id"), primary_key=True),
-#     db.Column("user_id", db.Integer, db.ForeignKey("users.id"), primary_key=True),
-# )
+#     def to_dict(self):
+#         return {
+#             "id": self.id,
+#             "userId": self.userId,
+#             "artistId": self.artistId,
+#         }
 
 
 class Chat(db.Model):

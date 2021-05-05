@@ -1,1 +1,1 @@
-from .db import db, User, Artist, Chat, FavoriteArtist
+from .db import db, User, Artist, Chat, favoriteArtists
