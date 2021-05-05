@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   showFavorites,
   removeFromFavorites,
   showUsersWhoLikeThisArtist,
 } from "../../store/artists";
+import UserSelect from "./UserSelect";
 
 function FavoriteArtist() {
   const dispatch = useDispatch();
-
   const favArtist = useSelector((state) => state.artists.favorites);
-  console.log(favArtist);
 
   useEffect(() => {
     dispatch(showFavorites());
@@ -20,11 +19,6 @@ function FavoriteArtist() {
     e.preventDefault();
     await dispatch(removeFromFavorites(e.target.id));
     dispatch(showFavorites());
-    return;
-  };
-  const handleShowFavoriters = async (e) => {
-    e.preventDefault();
-    await dispatch(showUsersWhoLikeThisArtist(e.target.id));
     return;
   };
 
@@ -38,9 +32,7 @@ function FavoriteArtist() {
           <button onClick={handleUnFavorite} type="button" id={artist.id}>
             UnFavorite
           </button>
-          <button onClick={handleShowFavoriters} type="button" id={artist.id}>
-            show others who like this artist
-          </button>
+          <UserSelect artist={artist} />
         </div>
       ))}
     </div>
