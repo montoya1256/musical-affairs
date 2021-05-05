@@ -1,5 +1,6 @@
 const RANDOM_ARTIST = "artists/RANDOM_ARTIST";
 const FAVORITE_ARTIST = "artists/FAVORITE_ARTIST";
+const USERLIKESARTIST = "artists/USERLIKESARTIST";
 
 const loadOne = (artist) => ({
   type: RANDOM_ARTIST,
@@ -8,6 +9,11 @@ const loadOne = (artist) => ({
 
 const getFavorites = (artist) => ({
   type: FAVORITE_ARTIST,
+  artist,
+});
+
+const getUsersWhoLikeThisArtist = (artist) => ({
+  type: USERLIKESARTIST,
   artist,
 });
 
@@ -23,6 +29,13 @@ export const showFavorites = () => async (dispatch) => {
   const favorites = await res.json();
   dispatch(getFavorites(favorites.favorites));
   return favorites.favorites;
+};
+
+export const showUsersWhoLikeThisArtist = (artistId) => async (dispatch) => {
+  const res = await fetch(`/api/artists/${artistId}/`);
+  const users = await res.json();
+  dispatch(getUsersWhoLikeThisArtist(users.users));
+  return users.users;
 };
 
 export const addToFavorites = (favArtistId) => async (dispatch) => {
@@ -56,6 +69,8 @@ const artistsReducer = (state = initialState, action) => {
       return { ...state, artist: action.artist };
     case FAVORITE_ARTIST:
       return { ...state, favorites: action.artist };
+    case USERLIKESARTIST:
+      return { ...state, users: action.artist };
     default:
       return state;
   }

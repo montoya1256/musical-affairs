@@ -19,11 +19,12 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 
-@artist_routes.route("/")
+@artist_routes.route("/<int:artistId>/")
 @login_required
-def all_artist():
-    artists = Artist.query.all()
-    return {"artists": [artist.to_dict() for artist in artists]}
+def all_artist(artistId):
+    artist = Artist.query.get(artistId)
+    users = artist.users_like
+    return {"users": [user.to_simple_dict() for user in users]}
 
 
 @artist_routes.route("/random/")

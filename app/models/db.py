@@ -58,6 +58,17 @@ class User(db.Model, UserMixin):
             "preffered_gender": self.preffered_gender,
         }
 
+    def to_simple_dict(self):
+        return {
+            "id": self.id,
+            "first_name": self.first_name,
+            "profile_pic": self.profile_pic,
+            "birthday": self.birthday,
+            "zip_code": self.zip_code,
+            "gender": self.gender,
+            "preffered_gender": self.preffered_gender,
+        }
+
 
 class Artist(db.Model):
     __tablename__ = "artists"
@@ -68,7 +79,7 @@ class Artist(db.Model):
     apiId = db.Column(db.Integer, nullable=False)
 
     users_like = db.relationship(
-        "Users",
+        "User",
         secondary="favorites",
         backref=db.backref("favoriteArtist", lazy="dynamic"),
     )
