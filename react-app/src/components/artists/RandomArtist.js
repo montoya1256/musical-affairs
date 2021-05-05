@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRandomArtist } from "../../store/artists";
+import { getRandomArtist, addToFavorites } from "../../store/artists";
 
 function RandomArtist() {
   const dispatch = useDispatch();
@@ -10,9 +10,10 @@ function RandomArtist() {
     dispatch(getRandomArtist());
   }, [dispatch]);
 
-  const handleLike = (e) => {
+  const handleLike = async (e) => {
     e.preventDefault();
-    dispatch(getRandomArtist());
+    await dispatch(addToFavorites(randomArtist.id));
+    await dispatch(getRandomArtist());
   };
   const handleDisLike = (e) => {
     e.preventDefault();

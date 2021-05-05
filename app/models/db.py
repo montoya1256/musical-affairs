@@ -58,6 +58,17 @@ class User(db.Model, UserMixin):
             "preffered_gender": self.preffered_gender,
         }
 
+    def to_simple_dict(self):
+        return {
+            "id": self.id,
+            "first_name": self.first_name,
+            "profile_pic": self.profile_pic,
+            "birthday": self.birthday,
+            "zip_code": self.zip_code,
+            "gender": self.gender,
+            "preffered_gender": self.preffered_gender,
+        }
+
 
 class Artist(db.Model):
     __tablename__ = "artists"
@@ -67,6 +78,12 @@ class Artist(db.Model):
     profile_pic = db.Column(db.String(100), nullable=False)
     apiId = db.Column(db.Integer, nullable=False)
 
+    users_like = db.relationship(
+        "User",
+        secondary="favorites",
+        backref=db.backref("favoriteArtist", lazy="dynamic"),
+    )
+
     def to_dict(self):
         return {
             "id": self.id,
@@ -74,24 +91,6 @@ class Artist(db.Model):
             "profile_pic": self.profile_pic,
             "apiId": self.apiId,
         }
-
-
-# class FavoriteArtist(db.Model):
-#     __tablename__ = "favoriteArtists"
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     userId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-#     artistId = db.Column(db.Integer, db.ForeignKey("artists.id"), nullable=False)
-
-#     # user = relationship("User", backref="artists", cascade="all, delete-orphan")
-#     # artists = relationship("Artist", backref="users", cascade="all, delete-orphan")
-
-#     def to_dict(self):
-#         return {
-#             "id": self.id,
-#             "userId": self.userId,
-#             "artistId": self.artistId,
-#         }
 
 
 class Chat(db.Model):
