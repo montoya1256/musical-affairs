@@ -1,10 +1,10 @@
-import React, { Component, Fragment, useState } from "react";
+import React, { useState } from "react";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useDispatch, useSelector } from "react-redux";
 import { showUsersWhoLikeThisArtist } from "../../store/artists";
 
-function UserSelect({ selected, artist }) {
+function UserSelect({ artist }) {
   const dispatch = useDispatch();
   const [select, setSelect] = useState(false);
   const [selectedUser, setSelectedUser] = useState("");

@@ -27,7 +27,7 @@ function RandomArtist() {
       <button onClick={handleDisLike} type="button">
         DisLike
       </button>
-      <img src={randomArtist?.profile_pic}></img>
+      <img src={randomArtist?.profile_pic} alt="{randomArtist?.name}"></img>
       <button onClick={handleLike} type="button">
         Like
       </button>

@@ -9,6 +9,7 @@ import UsersList from "./components/UsersList";
 import User from "./components/User";
 import RandomArtist from "./components/artists/RandomArtist";
 import FavoriteArtist from "./components/artists/FavoriteArtist";
+import Messages from "./components/Messages/Messages";
 // import { authenticate } from "./services/auth";
 import { authenticate } from "./store/session";
 
@@ -48,12 +49,16 @@ function App() {
           <h1>My Home Page</h1>
           <a href="/artist">pick an artist</a>
           <a href="/favorites">Favorites</a>
+          <a href="/messages">Messages</a>
         </ProtectedRoute>
         <ProtectedRoute path="/artist" exact={true}>
           <RandomArtist />
         </ProtectedRoute>
         <ProtectedRoute path="/favorites" exact={true}>
           <FavoriteArtist />
+        </ProtectedRoute>
+        <ProtectedRoute path="/messages" exact={true}>
+          <Messages />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
