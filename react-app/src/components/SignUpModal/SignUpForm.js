@@ -45,7 +45,7 @@ const SignUpForm = () => {
       console.log("gender", preffered_gender);
       if (response.errors) return setErrors(response.errors);
       else {
-        history.go(0);
+        history.push("/artist");
         close.click();
         return;
       }

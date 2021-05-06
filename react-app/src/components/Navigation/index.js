@@ -26,7 +26,7 @@ const Navigation = () => {
         password: "password",
       })
     );
-    history.go(0);
+    history.push("/favorites");
   };
 
   const handleSearch = async (e) => {
