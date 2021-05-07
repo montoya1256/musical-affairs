@@ -6,6 +6,10 @@ import {
   showUsersWhoLikeThisArtist,
 } from "../../store/artists";
 import UserSelect from "./UserSelect";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./FavoriteArtist.css";
 
 function FavoriteArtist() {
   const dispatch = useDispatch();
@@ -22,19 +26,43 @@ function FavoriteArtist() {
     return;
   };
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    cssEase: "linear",
+  };
+
   return (
-    <div>
-      <h1>Favorites</h1>
-      {favArtist?.map((artist) => (
-        <div key={artist.id}>
-          <p>{artist.name}</p>
-          <img src={artist.profile_pic} alt={artist.name}></img>
-          <button onClick={handleUnFavorite} type="button" id={artist.id}>
-            UnFavorite
-          </button>
-          <UserSelect artist={artist} />
-        </div>
-      ))}
+    <div className="slider">
+      <h1 className="slider_title">Favorites</h1>
+      <Slider {...settings}>
+        {favArtist?.map((artist) => (
+          <div key={artist.id} className="card-wrapper">
+            <div className="card">
+              <div className="card-image">
+                <button
+                  className="unfavorite"
+                  onClick={handleUnFavorite}
+                  type="button"
+                  id={artist.id}
+                >
+                  <i id={artist.id} class="fas fa-heart-broken unfav"></i>
+                </button>
+                <img src={artist.profile_pic} alt={artist.name} />
+              </div>
+              <div className="details">
+                <h2>
+                  {artist.name} <span className="job-title">Artist</span>
+                </h2>
+              </div>
+            </div>
+            <UserSelect artist={artist} />
+          </div>
+        ))}
+      </Slider>
     </div>
   );
 }
