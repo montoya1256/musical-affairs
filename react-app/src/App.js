@@ -38,6 +38,7 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/favorites" exact={true}>
           <FavoriteArtist />
+          <RandomArtist />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
