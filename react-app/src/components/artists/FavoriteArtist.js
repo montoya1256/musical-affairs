@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  showFavorites,
-  removeFromFavorites,
-  showUsersWhoLikeThisArtist,
-} from "../../store/artists";
+import { showFavorites, removeFromFavorites } from "../../store/artists";
 import UserSelect from "./UserSelect";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
