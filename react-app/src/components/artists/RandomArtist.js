@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getRandomArtist,
   addToFavorites,
   showFavorites,
 } from "../../store/artists";
+import "./RandomArtist.css";
+import Button from "react-bootstrap/Button";
 
 function RandomArtist() {
   const dispatch = useDispatch();
@@ -26,16 +28,38 @@ function RandomArtist() {
   };
 
   return (
-    <div>
-      <h1>randomArtist</h1>
-      <h3>{randomArtist?.name}</h3>
-      <button onClick={handleDisLike} type="button">
-        DisLike
-      </button>
-      <img src={randomArtist?.profile_pic}></img>
-      <button onClick={handleLike} type="button">
-        Like
-      </button>
+    <div className="randomArtist-div">
+      <div>
+        <h1 className="randomArtist-random">Artist You may be interested in</h1>
+        <h3 className="randomArtist-name">{randomArtist?.name}</h3>
+
+        <img
+          className="randomArtist-image"
+          src={randomArtist?.profile_pic}
+        ></img>
+        <div className="randomArtist-buttons">
+          {/* <div className="randomArtist-dislike-div"> */}
+          <button
+            variant="light"
+            className="randomArtist-dislike-btn"
+            onClick={handleDisLike}
+            type="button"
+          >
+            <i className="fas fa-times"></i>
+          </button>
+          {/* </div> */}
+          {/* <div className="randomArtist-like-div"> */}
+          <button
+            variant="light"
+            className="randomArtist-like-btn"
+            onClick={handleLike}
+            type="button"
+          >
+            <i className="fas fa-heart"></i>
+          </button>
+          {/* </div> */}
+        </div>
+      </div>
     </div>
   );
 }
