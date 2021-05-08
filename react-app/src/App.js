@@ -28,14 +28,6 @@ function App() {
     <BrowserRouter>
       <Navigation />
       <Switch>
-        <ProtectedRoute path="/" exact={true}>
-          <h1>My Home Page</h1>
-          <a href="/artist">pick an artist</a>
-          <a href="/favorites">Favorites</a>
-        </ProtectedRoute>
-        <ProtectedRoute path="/artist" exact={true}>
-          <RandomArtist />
-        </ProtectedRoute>
         <ProtectedRoute path="/favorites" exact={true}>
           <FavoriteArtist />
           <RandomArtist />

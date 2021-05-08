@@ -19,7 +19,7 @@ const LoginForm = () => {
     if (data?.errors) {
       setErrors(["Invalid email"]);
     } else {
-      history.push("/artist");
+      history.push("/favorites");
       close.click();
       return;
     }
