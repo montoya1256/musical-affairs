@@ -2,28 +2,55 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "../../store/messages";
 
-const io = require("socket.io-client");
-export const privateSocket = io("/private");
+import io from "socket.io-client";
+let privateSocket;
 
 export default function Chat() {
   const dispatch = useDispatch();
   const messages = useSelector((state) => state.messages.messages);
+  const user = useSelector((state) => state.session.user);
   const [message, setMessage] = useState("");
-  console.log("-----", messages);
 
   useEffect(() => {
     dispatch(getMessages(1, 2));
   }, [dispatch]);
 
+  useEffect(() => {
+    console.log("((((((((((((((((((((((", privateSocket);
+    privateSocket = io("/private");
+    console.log("()))))))))))))))))", privateSocket);
+
+    // return () => {
+    //   privateSocket.disconnect();
+    // };
+  }, []);
+
   const handleChatSubmit = (e) => {
     e.preventDefault();
+
+    const msg = {
+      message,
+      sender_id: user.id,
+      reciever_id: 2,
+    };
+    console.log("*******", msg);
+
+    privateSocket.emit("private_message", msg);
+    console.log("*************");
+    setMessage("");
   };
+
+  useEffect(() => {
+    privateSocket.on("private_room", (msg) => {
+      console.log("msg- --------", msg);
+    });
+  });
 
   return (
     <div>
       <h1>Chat</h1>
       {messages?.map((msg) => (
-        <p>{msg.message}</p>
+        <p key={msg.id}>{msg.message}</p>
       ))}
 
       <div>

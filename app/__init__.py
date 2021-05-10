@@ -14,11 +14,12 @@ from .api.private_chat_routes import private_message_routes
 
 from .seeds import seed_commands
 
-# from .socket import socketio
+from .socket import socketio
 
 from .config import Config
 
 app = Flask(__name__)
+# socketio = SocketIO(cors_allowed_origins="*")
 
 # Setup login manager
 login = LoginManager(app)
@@ -40,8 +41,8 @@ app.register_blueprint(artist_routes, url_prefix="/api/artists")
 app.register_blueprint(private_message_routes, url_prefix="/api/chat")
 db.init_app(app)
 Migrate(app, db)
+socketio.init_app(app)
 
-socketio = SocketIO(app)
 
 # Application Security
 CORS(app)
@@ -83,20 +84,22 @@ def react_root(path):
     return app.send_static_file("index.html")
 
 
-@socketio.on("private_message", namespace="/private")
-def handlePrivateMessage(data):
-    print("----------------------------", data)
-    time = datetime.now()
-    msg = Chat(
-        message=data["message"],
-        sender_id=data["sender_id"],
-        reciever_id=data["reciever_id"],
-        createdAt=time,
-        updatedAt=time,
-    )
-    db.session.add(msg)
-    db.session.commit()
-    emit("private_room", data, to=data["roomId"], namespace="/private")
+# @socketio.on("private_message")
+# def handlePrivateMessage(data):
+#     print("hellooooooo")
+#     print("----------------------------", data)
+#     # time = datetime.now()
+#     # msg = Chat(
+#     #     message=data["message"],
+#     #     sender_id=data["sender_id"],
+#     #     reciever_id=data["reciever_id"],
+#     #     createdAt=time,
+#     #     updatedAt=time,
+#     # )
+#     # db.session.add(msg)
+#     # db.session.commit()
+#     # emit("private_room", msg, to=data["roomId"], namespace="/private")
+#     emit("private_message", data, broadcast=True)
 
 
 if __name__ == "__main__":
