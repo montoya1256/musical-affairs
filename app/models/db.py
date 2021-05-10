@@ -103,6 +103,11 @@ class Chat(db.Model):
     createdAt = db.Column(db.DateTime, default=datetime.now())
     updatedAt = db.Column(db.DateTime, default=datetime.now())
 
+    sender = db.relationship("User", backref="sender_person", foreign_keys=[sender_id])
+    reciever = db.relationship(
+        "User", backref="reciever_person", foreign_keys=[reciever_id]
+    )
+
     def to_dict(self):
         return {
             "id": self.id,
