@@ -1,0 +1,180 @@
+.slider {
+  display: block;
+  width: 100%;
+  height: 55vh;
+  overflow: hidden;
+  position: relative;
+  background-color: #333;
+}
+
+.slider_title {
+  font-size: 5w;
+  color: tomato;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 2vw;
+}
+
+.slick-slider {
+  margin: 0 70px;
+}
+
+.card-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.card-wrapper:active,
+.card-wrapper:hover,
+.card-wrapper:focus {
+  outline: none;
+  border: none;
+}
+
+.card {
+  width: 100%;
+  height: 350px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+}
+
+.card .card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background-color: #000;
+  transition: .5s;
+}
+.card .card-image:hover img{
+  opacity: .4;
+  transition: .5s;
+}
+.card .card-image:hover{
+  transform: translateY(-100px);
+  transition: all .9s;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.details {
+  position: absolute;
+  bottom: 400px;
+  left: 0;
+  background: white;
+  width: 100%;
+  height: 120px;
+  z-index: 1;
+  padding: 10px;
+  transition: .2s;
+}
+
+.details h2 {
+  margin: 30px 0;
+  padding: 0;
+  text-align: center;
+}
+
+h2 .job-title {
+  font-size: 16px;
+  line-height: 2;
+  color: #333;
+  font-weight: 300;
+  display: block;
+}
+
+.card:hover .details {
+  bottom: 0;
+}
+
+.slick-dots li button{
+  width: 20px;
+  height: 20px;
+  border: 1px solid white;
+  border-radius: 20px;
+}
+
+.slick-dots li button::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  content: "";
+  text-align: center;
+  opacity: .5;
+  color: black;
+  background-color: white;
+  transform: translate(-50%, -50%);
+  transition: all .3s ease-in-out;
+}
+
+.slick-dots li .slick-active button,
+.slick-dots li:hover button{
+  border-color: tomato;
+  opacity: 1;
+}
+
+.slick-prev,
+.slick-next {
+  width: 50px;
+  height: 50px;
+}
+
+.slick-prev:hover,
+.slick-prev:focus,
+.slick-next:hover,
+.slick-next:focus {
+  color: white;
+  outline: none;
+}
+
+.slick-prev::before,
+.slick-next::before {
+  color: black;
+}
+
+.slick-prev {
+  left: -55px;
+}
+
+.slick-next {
+  right: -55px;
+}
+
+.slick-prev:before, .slick-next:before {
+  font-size: 50px;
+}
+
+.unfavorite {
+  z-index: 3;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  background: none;
+  border: none;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+  color: green;
+  display: none;
+}
+
+.card-image:hover .unfavorite {
+  display: block;
+}
+
+.unfavorite:hover {
+  color: tomato;
+}

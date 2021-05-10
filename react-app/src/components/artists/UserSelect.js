@@ -1,10 +1,12 @@
-import React, { Component, Fragment, useState } from "react";
+import React, { useState } from "react";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useDispatch, useSelector } from "react-redux";
 import { showUsersWhoLikeThisArtist } from "../../store/artists";
+import Button from "react-bootstrap/Button";
+import "./UserSelect.css";
 
-function UserSelect({ selected, artist }) {
+function UserSelect({ artist }) {
   const dispatch = useDispatch();
   const [select, setSelect] = useState(false);
   const [selectedUser, setSelectedUser] = useState("");
@@ -21,10 +23,14 @@ function UserSelect({ selected, artist }) {
     return;
   };
 
+  const handleChat = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <>
       {select ? (
-        <div>
+        <div className="select-div">
           <Select
             labelId="demo-simple-select-autowidth-label"
             id="demo-simple-select-autowidth"
@@ -42,18 +48,26 @@ function UserSelect({ selected, artist }) {
             ))}
           </Select>
           {selectedUser ? (
-            <div>
-              <button>Chat With {selectedUser}</button>
+            <div className="select-chat">
+              <Button variant="info" onClick={handleChat}>
+                Chat With {selectedUser}
+              </Button>
             </div>
           ) : (
             ""
           )}
         </div>
       ) : (
-        <div>
-          <button onClick={handleShowFavoriters} type="button" id={artist.id}>
-            show others who like this artist
-          </button>
+        <div className="select-div">
+          <Button
+            variant="secondary"
+            className="select-button"
+            onClick={handleShowFavoriters}
+            type="button"
+            id={artist.id}
+          >
+            Show others who like this artist
+          </Button>
         </div>
       )}
     </>

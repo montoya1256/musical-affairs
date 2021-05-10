@@ -1,0 +1,17 @@
+.select-div {
+  width: 100%;
+  background: none;
+  display: flex;
+}
+
+.select-button {
+  padding: 5px 0;
+  margin: 10px 0;
+  width: 100%;
+}
+.select-chat {
+  margin: 10px 0 0 20px ;
+}
+.MuiInputBase-root .MuiInputBase-input {
+  color: white;
+}
