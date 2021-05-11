@@ -12,8 +12,6 @@ function UserSelect({ artist }) {
   const [selectedUser, setSelectedUser] = useState("");
   const users = useSelector((state) => state.artists.users);
 
-  console.log(users);
-
   const handleShowFavoriters = async (e) => {
     e.preventDefault();
     // setSelect(false);

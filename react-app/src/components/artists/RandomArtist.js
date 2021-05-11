@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getRandomArtist,
@@ -6,7 +6,6 @@ import {
   showFavorites,
 } from "../../store/artists";
 import "./RandomArtist.css";
-import Button from "react-bootstrap/Button";
 
 function RandomArtist() {
   const dispatch = useDispatch();
@@ -36,6 +35,7 @@ function RandomArtist() {
         <img
           className="randomArtist-image"
           src={randomArtist?.profile_pic}
+          alt={`${randomArtist?.name}`}
         ></img>
         <div className="randomArtist-buttons">
           {/* <div className="randomArtist-dislike-div"> */}
