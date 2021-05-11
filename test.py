@@ -49,15 +49,16 @@ from random import randint
 #     print(ar)
 # print(uniqueList)
 
-term = "bruno mars"
-print(term)
+term = "The Weeknd"
 
 res = requests.get(
     f"http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist={term}&api_key=6e04dabf1f3c8f12a80f3cdf2de0ef1c&format=json"
 )
-
 name = res.json()["artist"]["name"]
+similar = res.json()["artist"]["similar"]["artist"]
+print(len(similar))
 
-resp = requests.get(f"https://www.theaudiodb.com/api/v1/json/1/search.php?s={name}")
-print(name)
-print(resp.json()["artists"][0]["idArtist"])
+i = 0
+while i < len(similar):
+    print(similar[i]["name"])
+    i += 1
