@@ -7,6 +7,7 @@ import FavoriteArtist from "./components/artists/FavoriteArtist";
 // import { authenticate } from "./services/auth";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import SearchResults from "./components/SearchResults/SearchResults";
 
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
@@ -31,6 +32,9 @@ function App() {
         <ProtectedRoute path="/favorites" exact={true}>
           <FavoriteArtist />
           <RandomArtist />
+        </ProtectedRoute>
+        <ProtectedRoute path="/search" exact={true}>
+          <SearchResults />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
