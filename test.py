@@ -41,10 +41,23 @@ from random import randint
 #     i += 2
 
 
-mylist = [(randint(1, 431), randint(1, 151)) for k in range(10)]
-tupleList = list(set(mylist))
-uniqueList = list(zip(*tupleList))
+# mylist = [(randint(1, 431), randint(1, 151)) for k in range(10)]
+# tupleList = list(set(mylist))
+# uniqueList = list(zip(*tupleList))
 
-for ar in tupleList:
-    print(ar)
+# for ar in tupleList:
+#     print(ar)
 # print(uniqueList)
+
+term = "bruno mars"
+print(term)
+
+res = requests.get(
+    f"http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist={term}&api_key=6e04dabf1f3c8f12a80f3cdf2de0ef1c&format=json"
+)
+
+name = res.json()["artist"]["name"]
+
+resp = requests.get(f"https://www.theaudiodb.com/api/v1/json/1/search.php?s={name}")
+print(name)
+print(resp.json()["artists"][0]["idArtist"])
