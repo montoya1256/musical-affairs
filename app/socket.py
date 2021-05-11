@@ -4,6 +4,7 @@ from app.models import db, Chat
 from flask_login import current_user
 from datetime import datetime
 from app.forms import chat_form
+from flask import request
 
 # configure cors_allowed_origins
 if os.environ.get("FLASK_ENV") == "production":
@@ -16,6 +17,10 @@ else:
 
 # initialize your socket instance
 socketio = SocketIO(cors_allowed_origins=origins)
+
+# inlcude an on connect event to log the users request.sid
+
+# include a disconnect event to disconnect the user when they log out
 
 
 @socketio.on("private_message", namespace="/private")
@@ -31,7 +36,8 @@ def handlePrivateMessage(data):
     db.session.add(msg)
     db.session.commit()
     room = data["roomId"]
-    emit("private_room", data, to=room, namespace="/private")
+    print(request.sid, "****************")
+    emit("private_room", data, to=request.sid, namespace="/private")
 
 
 # def validation_errors_to_error_messages(validation_errors):

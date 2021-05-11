@@ -10,11 +10,10 @@ export default function Chat() {
   const messages = useSelector((state) => state.messages.messages);
   const user = useSelector((state) => state.session.user);
   const [message, setMessage] = useState("");
-  const [stateMessages, setStateMessages] = useState(messages);
-  const [thing, setThing] = useState(null);
+  const [stateMessages, setStateMessages] = useState([]);
 
-  useEffect(() => {
-    dispatch(getMessages(1, 2));
+  useEffect(async () => {
+    await dispatch(getMessages(1, 2));
   }, [dispatch]);
 
   const handleChatSubmit = (e) => {
@@ -29,14 +28,29 @@ export default function Chat() {
 
     privateSocket.emit("private_message", msg);
 
+    // have a private socket disconnect for best coding practices.
+
     setMessage("");
   };
+
+  useEffect(() => {
+    privateSocket.on("private_room", (msg) => {
+      console.log("-----------------------");
+      setStateMessages((stateMessages) => [...stateMessages, msg]);
+    });
+  }, []);
+
+  useEffect(() => {
+    setStateMessages(messages);
+  }, [messages]);
+
+  console.log(stateMessages);
 
   return (
     <div>
       <h1>Chat</h1>
-      {messages?.map((msg) => (
-        <p key={msg.id}>{msg.message}</p>
+      {stateMessages?.map((msg, i) => (
+        <p key={i}>{msg.message}</p>
       ))}
 
       <div>
