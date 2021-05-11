@@ -20,8 +20,6 @@ socketio = SocketIO(cors_allowed_origins=origins)
 
 @socketio.on("private_message", namespace="/private")
 def handlePrivateMessage(data):
-    print("hellooooooo")
-    print("----------------------------", data)
     time = datetime.now()
     msg = Chat(
         message=data["message"],
@@ -32,8 +30,8 @@ def handlePrivateMessage(data):
     )
     db.session.add(msg)
     db.session.commit()
-    emit("private_room", msg, to=data["roomId"], namespace="/private")
-    emit("private_message", data, broadcast=True)
+    room = data["roomId"]
+    emit("private_room", data, to=room, namespace="/private")
 
 
 # def validation_errors_to_error_messages(validation_errors):
