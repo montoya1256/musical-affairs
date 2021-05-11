@@ -4,7 +4,7 @@ import SimilarResults from "./SimilarResults";
 
 export default function SearchResults() {
   const searchResults = useSelector((state) => state.search);
-  console.log("---------", searchResults.search.name);
+  const simarr = searchResults.similar;
   return (
     <div>
       {searchResults.search.profile_pic ? (
@@ -16,7 +16,7 @@ export default function SearchResults() {
               alt={`${searchResults.search.name}`}
             ></img>
           </div>
-          <SimilarResults />
+          {simarr?.length > 0 && <SimilarResults />}
         </div>
       ) : (
         <div>
