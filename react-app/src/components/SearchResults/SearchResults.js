@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import SimilarResults from "./SimilarResults";
 
 export default function SearchResults() {
   const searchResults = useSelector((state) => state.search);
@@ -8,11 +9,14 @@ export default function SearchResults() {
     <div>
       {searchResults.search.profile_pic ? (
         <div>
-          <h1>{searchResults.search.name}</h1>
-          <img
-            src={searchResults.search.profile_pic}
-            alt={`${searchResults.search.name}`}
-          ></img>
+          <div>
+            <h1>{searchResults.search.name}</h1>
+            <img
+              src={searchResults.search.profile_pic}
+              alt={`${searchResults.search.name}`}
+            ></img>
+          </div>
+          <SimilarResults />
         </div>
       ) : (
         <div>

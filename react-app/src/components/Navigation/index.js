@@ -8,7 +8,7 @@ import LoginFormModal from "../LoginFormModal";
 import SignUpModal from "../SignUpModal";
 import * as sessionActions from "../../store/session";
 
-import { getSearchResults } from "../../store/search";
+import { getSearchResults, getSimilarResults } from "../../store/search";
 
 import "./Navigation.css";
 
@@ -34,6 +34,7 @@ const Navigation = () => {
   const handleSearch = async (e) => {
     e.preventDefault();
     dispatch(getSearchResults(search));
+    dispatch(getSimilarResults(search));
     setSearch("");
     history.push("/search");
   };

@@ -49,7 +49,25 @@ def search_similars(term):
     similarArtists = []
     while i < len(similar):
         name = similar[i]["name"]
+
         artist = Artist.query.filter(Artist.name.ilike(f"%{name}%")).first()
-        similarArtists.append(artist)
+        if artist:
+            similarArtists.append(artist)
+        else:
+            resp = requests.get(
+                f"https://www.theaudiodb.com/api/v1/json/1/search.php?s={name}"
+            )
+            print("NAME \n\n\n", name)
+            if resp.json()["artists"]:
+                profile_pic = resp.json()["artists"][0]["strArtistThumb"]
+            else:
+                i += 1
+                continue
+            if profile_pic is not None:
+                artist_id = resp.json()["artists"][0]["idArtist"]
+                new_artist = Artist(name=name, profile_pic=profile_pic, apiId=artist_id)
+                db.session.add(new_artist)
+                db.session.commit()
+                similarArtists.append(new_artist)
         i += 1
     return {"artist": [similarArtist.to_dict() for similarArtist in similarArtists]}
