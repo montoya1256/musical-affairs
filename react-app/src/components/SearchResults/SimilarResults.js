@@ -5,7 +5,7 @@ export default function SimilarResults() {
   const similarArtists = useSelector((state) => state.search.similar);
   return (
     <div>
-      <h1>Similars</h1>
+      <h1>Artist you may also like</h1>
       {similarArtists?.map((artist) => (
         <div key={artist.id}>
           <h1>{artist.name}</h1>
