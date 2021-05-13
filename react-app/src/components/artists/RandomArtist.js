@@ -38,7 +38,6 @@ function RandomArtist() {
           alt={`${randomArtist?.name}`}
         ></img>
         <div className="randomArtist-buttons">
-          {/* <div className="randomArtist-dislike-div"> */}
           <button
             variant="light"
             className="randomArtist-dislike-btn"
@@ -47,8 +46,6 @@ function RandomArtist() {
           >
             <i className="fas fa-times"></i>
           </button>
-          {/* </div> */}
-          {/* <div className="randomArtist-like-div"> */}
           <button
             variant="light"
             className="randomArtist-like-btn"
@@ -57,7 +54,6 @@ function RandomArtist() {
           >
             <i className="fas fa-heart"></i>
           </button>
-          {/* </div> */}
         </div>
       </div>
     </div>

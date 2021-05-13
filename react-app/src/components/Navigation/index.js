@@ -42,6 +42,9 @@ const Navigation = () => {
   if (sessionUser) {
     sessionLinks = (
       <>
+        <div className="nav-home">
+          <a href="/favorites">Favorites</a>
+        </div>
         <ProfileButton user={sessionUser} />
       </>
     );
@@ -72,7 +75,7 @@ const Navigation = () => {
   }
 
   return (
-    <Navbar bg="primary" variant="dark" className="nav-container">
+    <Navbar bg="dark" variant="dark" className="nav-container">
       {searchBar}
       <Nav className="mr-auto1" id="nav-profile">
         {sessionLinks}

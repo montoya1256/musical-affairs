@@ -14,9 +14,7 @@ function UserSelect({ artist }) {
 
   const handleShowFavoriters = async (e) => {
     e.preventDefault();
-    // setSelect(false);
     await dispatch(showUsersWhoLikeThisArtist(e.target.id));
-    // dispatch(showFavorites());
     setSelect(true);
     return;
   };

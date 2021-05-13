@@ -53,7 +53,7 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <Button className="btn btn-dark" onClick={openMenu}>
+      <Button className="btn btn-dark mr-3" onClick={openMenu}>
         <i className="fas fa-cog" />
       </Button>
       {showMenu && (

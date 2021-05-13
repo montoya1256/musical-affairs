@@ -1,0 +1,16 @@
+h1 {
+  font-family: 'Damion', cursive;
+  color: #fff;
+  text-shadow: 0px 0px 60px 0px rgba(0,0,0,0.30);
+}
+.search-container {
+  display: flex;
+  justify-content: center;
+  background-color: #333;
+  color: white;
+}
+
+.search-artists h1 {
+  display: flex;
+  justify-content: center;
+}

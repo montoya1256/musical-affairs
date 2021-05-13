@@ -44,9 +44,13 @@ export const addToFavorites = (favArtistId) => async (dispatch) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ favArtistId }),
   });
-  const newFavArtist = await res.json();
-  dispatch(getFavorites());
-  return newFavArtist;
+  if (res.ok) {
+    const newFavArtist = await res.json();
+    dispatch(getFavorites());
+    return newFavArtist;
+  } else {
+    return alert("This artist is already in your favorites");
+  }
 };
 
 export const removeFromFavorites = (favArtistId) => async (dispatch) => {
