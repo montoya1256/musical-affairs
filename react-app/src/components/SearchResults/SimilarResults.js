@@ -16,23 +16,31 @@ export default function SimilarResults() {
   return (
     <div>
       <h1>Artist you may also like</h1>
-      {similarArtists?.map((artist) => (
-        <div key={artist.id}>
-          <h1>{artist.name}</h1>
-          <img src={artist.profile_pic} alt={`${artist.name}`}></img>
-          <div>
-            <button
-              id={artist.id}
-              variant="light"
-              className=""
-              onClick={handleLike}
-              type="button"
-            >
-              ADD TO FAVORITES
-            </button>
+      <div className="similar-container">
+        {similarArtists?.map((artist) => (
+          <div key={artist.id}>
+            <h2>{artist.name}</h2>
+            <div className="similar-image-div">
+              <img
+                className="similar-image"
+                src={artist.profile_pic}
+                alt={`${artist.name}`}
+              ></img>
+            </div>
+            <div className="search-favorites">
+              <button
+                id={artist.id}
+                variant="light"
+                className="search-favorites-btn"
+                onClick={handleLike}
+                type="button"
+              >
+                ADD TO FAVORITES
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
