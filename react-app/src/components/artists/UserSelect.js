@@ -12,13 +12,9 @@ function UserSelect({ artist }) {
   const [selectedUser, setSelectedUser] = useState("");
   const users = useSelector((state) => state.artists.users);
 
-  console.log(users);
-
   const handleShowFavoriters = async (e) => {
     e.preventDefault();
-    // setSelect(false);
     await dispatch(showUsersWhoLikeThisArtist(e.target.id));
-    // dispatch(showFavorites());
     setSelect(true);
     return;
   };

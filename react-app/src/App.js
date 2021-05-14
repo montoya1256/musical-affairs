@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Switch } from "react-router-dom";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import RandomArtist from "./components/artists/RandomArtist";
 import FavoriteArtist from "./components/artists/FavoriteArtist";
 // import { authenticate } from "./services/auth";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import SearchResults from "./components/SearchResults/SearchResults";
 
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
@@ -31,6 +32,9 @@ function App() {
         <ProtectedRoute path="/favorites" exact={true}>
           <FavoriteArtist />
           <RandomArtist />
+        </ProtectedRoute>
+        <ProtectedRoute path="/search" exact={true}>
+          <SearchResults />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

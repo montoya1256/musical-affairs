@@ -45,7 +45,7 @@ function FavoriteArtist() {
                   type="button"
                   id={artist.id}
                 >
-                  <i id={artist.id} class="fas fa-heart-broken unfav"></i>
+                  <i id={artist.id} className="fas fa-heart-broken unfav"></i>
                 </button>
                 <img src={artist.profile_pic} alt={artist.name} />
               </div>
