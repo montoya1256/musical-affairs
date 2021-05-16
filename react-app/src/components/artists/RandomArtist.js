@@ -17,7 +17,7 @@ function RandomArtist() {
 
   const handleLike = async (e) => {
     e.preventDefault();
-    await dispatch(addToFavorites(randomArtist.id));
+    await dispatch(addToFavorites(randomArtist.id, randomArtist.name));
     await dispatch(getRandomArtist());
     await dispatch(showFavorites());
   };

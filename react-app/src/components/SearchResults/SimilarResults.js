@@ -7,14 +7,14 @@ export default function SimilarResults() {
   const dispatch = useDispatch();
   const similarArtists = useSelector((state) => state.search.similar);
 
-  const handleLike = async (e) => {
+  const handleLike = async (e, name) => {
     e.preventDefault();
     console.log(e.target.id);
-    await dispatch(addToFavorites(e.target.id));
+    await dispatch(addToFavorites(e.target.id, name));
   };
 
   return (
-    <div>
+    <div className="similar-div-container">
       <h1>Artist you may also like</h1>
       <div className="similar-container">
         {similarArtists?.map((artist) => (
@@ -32,7 +32,7 @@ export default function SimilarResults() {
                 id={artist.id}
                 variant="light"
                 className="search-favorites-btn"
-                onClick={handleLike}
+                onClick={(e) => handleLike(e, artist.name)}
                 type="button"
               >
                 ADD TO FAVORITES
