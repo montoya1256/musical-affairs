@@ -38,20 +38,21 @@ export const showUsersWhoLikeThisArtist = (artistId) => async (dispatch) => {
   return users.users;
 };
 
-export const addToFavorites = (favArtistId) => async (dispatch) => {
-  const res = await fetch("/api/artists/favorites/", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ favArtistId }),
-  });
-  if (res.ok) {
-    const newFavArtist = await res.json();
-    dispatch(getFavorites());
-    return newFavArtist;
-  } else {
-    return alert("This artist is already in your favorites");
-  }
-};
+export const addToFavorites =
+  (favArtistId, favArtistName) => async (dispatch) => {
+    const res = await fetch("/api/artists/favorites/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ favArtistId }),
+    });
+    if (res.ok) {
+      await res.json();
+      dispatch(getFavorites());
+      return alert(`${favArtistName} has been added to your favorites`);
+    } else {
+      return alert("This artist is already in your favorites");
+    }
+  };
 
 export const removeFromFavorites = (favArtistId) => async (dispatch) => {
   const res = await fetch("/api/artists/favorites/", {

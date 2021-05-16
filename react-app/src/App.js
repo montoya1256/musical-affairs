@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { BrowserRouter, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import RandomArtist from "./components/artists/RandomArtist";
 import FavoriteArtist from "./components/artists/FavoriteArtist";
 // import { authenticate } from "./services/auth";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import Landing from "./components/Landing/Landing";
 import SearchResults from "./components/SearchResults/SearchResults";
 
 function App() {
@@ -29,6 +30,9 @@ function App() {
     <BrowserRouter>
       <Navigation />
       <Switch>
+        <Route path="/" exact={true}>
+          <Landing />
+        </Route>
         <ProtectedRoute path="/favorites" exact={true}>
           <FavoriteArtist />
           <RandomArtist />

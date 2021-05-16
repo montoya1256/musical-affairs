@@ -1,0 +1,31 @@
+.landing-div {
+  height: 94.6vh;
+  background-color: #333;
+}
+
+.landing-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.landing-center h1 {
+  color: tomato;
+}
+
+.landing-desc {
+  max-width: 510px;
+}
+
+.landing-desc h2 {
+  color: white;
+  font-size: 20px;
+}
+
+.landing-modals {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}

@@ -9,10 +9,9 @@ export default function SearchResults() {
   const simarr = searchResults.similar;
   const dispatch = useDispatch();
 
-  const handleLike = async (e) => {
+  const handleLike = async (e, name) => {
     e.preventDefault();
-    console.log(e.target.id);
-    await dispatch(addToFavorites(e.target.id));
+    await dispatch(addToFavorites(e.target.id, name));
   };
 
   return (
@@ -33,7 +32,7 @@ export default function SearchResults() {
                 id={searchResults.id}
                 variant="secondary"
                 className="search-favorites-btn"
-                onClick={handleLike}
+                onClick={(e) => handleLike(e, searchResults.search.name)}
                 type="button"
               >
                 ADD TO FAVORITES
