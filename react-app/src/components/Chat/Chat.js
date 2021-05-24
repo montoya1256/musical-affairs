@@ -3,19 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "../../store/messages";
 
 import io from "socket.io-client";
-let privateSocket = io("/private");
+export const privateSocket = io("/private");
 
 export default function Chat() {
   const dispatch = useDispatch();
   const messages = useSelector((state) => state.messages.messages);
   const user = useSelector((state) => state.session.user);
   const [message, setMessage] = useState("");
-  const [chatInput, setChatInput] = useState("");
   const [stateMessages, setStateMessages] = useState([]);
-  const [roomId, setRoomId] = useState(null);
 
   useEffect(async () => {
-    await dispatch(getMessages(1, 2));
+    await dispatch(getMessages(user.sender_id, user.reciever_id));
   }, [dispatch]);
 
   const handleChatSubmit = (e) => {

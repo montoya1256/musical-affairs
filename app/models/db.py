@@ -115,4 +115,6 @@ class Chat(db.Model):
             "sender_id": self.sender_id,
             "reciever_id": self.reciever_id,
             "message": self.message,
+            "createdAt": self.createdAt,
+            "updatedAt": self.updatedAt,
         }
