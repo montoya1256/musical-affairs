@@ -11,6 +11,7 @@ export default function Chat() {
   const user = useSelector((state) => state.session.user);
   const [message, setMessage] = useState("");
   const [stateMessages, setStateMessages] = useState([]);
+  const [roomId, setRoomId] = useState(null);
 
   useEffect(async () => {
     await dispatch(getMessages(1, 2));

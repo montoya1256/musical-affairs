@@ -1,4 +1,4 @@
-from flask_socketio import SocketIO, send, emit
+from flask_socketio import SocketIO, emit, join_room, leave_room
 import os
 from app.models import db, Chat
 from flask_login import current_user
@@ -9,8 +9,8 @@ from flask import request
 # configure cors_allowed_origins
 if os.environ.get("FLASK_ENV") == "production":
     origins = [
-        "http://actual-app-url.herokuapp.com",
-        "https://actual-app-url.herokuapp.com",
+        "http://musical-affairs.herokuapp.com",
+        "https://musical-affairs.herokuapp.com",
     ]
 else:
     origins = "*"
@@ -35,38 +35,23 @@ def handlePrivateMessage(data):
     )
     db.session.add(msg)
     db.session.commit()
-    room = data["roomId"]
-    print(request.sid, "****************")
-    emit("private_room", data, to=request.sid, namespace="/private")
+    emit("private_room", data, to=data["roomId"], namespace="/private")
 
 
-# def validation_errors_to_error_messages(validation_errors):
-#     """
-#     Simple function that turns the WTForms validation errors into a simple list
-#     """
-#     errorMessages = []
-#     for field in validation_errors:
-#         for error in validation_errors[field]:
-#             errorMessages.append(f"{field} : {error}")
-#     return errorMessages
+@socketio.on("join_room", namespace="/private")
+def handlePrivateJoinRoom(roomId):
+    print("JOINED**********\n\n")
+    join_room(roomId["roomId"])
+    return None
 
 
-# @socketio.on("new_message")
-# def handle_new_msg(data):
-#     reciever_id = request.json["reciever_id"]
-#     createdAt = datetime.now()
-#     updatedAt = datetime.now()
-#     form = chat_form()
-#     form["csrf_token"].data = request.cookies["csrf_token"]
-#     if form.validate_on_submit():
-#         msg = Chat(
-#             message=form.message.data,
-#             sender_id=current_user.id,
-#             reciever_id=reciever_id,
-#             createdAt=createdAt,
-#             updatedAt=updatedAt,
-#         )
-#         db.session.add(msg)
-#         db.session.commit()
-#         return msg.to_dict()
-#     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+@socketio.on("leave_room", namespace="/private")
+def handlePrivateLeaveRoom(roomId):
+    print("LEFT---------------\n\n")
+    leave_room(roomId)
+    return None
+
+
+@socketio.on("connect", namespace="/private")
+def handlePrivateConnect():
+    print(request, "I have connected")
