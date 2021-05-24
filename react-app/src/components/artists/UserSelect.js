@@ -1,30 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useDispatch, useSelector } from "react-redux";
 import { showUsersWhoLikeThisArtist } from "../../store/artists";
 import Button from "react-bootstrap/Button";
 import "./UserSelect.css";
+import { getUser } from "../../store/users";
 
 function UserSelect({ artist }) {
   const dispatch = useDispatch();
   const [select, setSelect] = useState(false);
-  const [selectedUser, setSelectedUser] = useState("");
+  const [selectedUserId, setSelectedUserId] = useState("");
   const users = useSelector((state) => state.artists.users);
+
+  const selectedUser = useSelector((state) => state.user.user);
 
   console.log(users);
 
+  useEffect(async () => {
+    await dispatch(getUser(selectedUserId));
+  }, [selectedUserId]);
+
   const handleShowFavoriters = async (e) => {
     e.preventDefault();
-    // setSelect(false);
     await dispatch(showUsersWhoLikeThisArtist(e.target.id));
-    // dispatch(showFavorites());
     setSelect(true);
     return;
   };
 
-  const handleChat = (e) => {
+  const handleChat = async (e) => {
     e.preventDefault();
+    let recipientId = e.target.id;
+    console.log(selectedUserId, "selected", recipientId, "recipient");
   };
 
   return (
@@ -34,23 +41,23 @@ function UserSelect({ artist }) {
           <Select
             labelId="demo-simple-select-autowidth-label"
             id="demo-simple-select-autowidth"
-            value={selectedUser}
-            onChange={(e) => setSelectedUser(e.target.value)}
+            value={selectedUserId}
+            onChange={async (e) => await setSelectedUserId(e.target.value)}
             autoWidth
           >
             <MenuItem value="" disabled>
               Users who like this artist
             </MenuItem>
             {users?.map((user) => (
-              <MenuItem key={user.id} value={user.first_name}>
+              <MenuItem key={user.id} value={user.id}>
                 {user.first_name}
               </MenuItem>
             ))}
           </Select>
-          {selectedUser ? (
+          {selectedUserId ? (
             <div className="select-chat">
               <Button variant="info" onClick={handleChat}>
-                Chat With {selectedUser}
+                Chat With {selectedUser?.first_name}
               </Button>
             </div>
           ) : (

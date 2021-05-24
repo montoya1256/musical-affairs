@@ -10,6 +10,7 @@ export default function Chat() {
   const messages = useSelector((state) => state.messages.messages);
   const user = useSelector((state) => state.session.user);
   const [message, setMessage] = useState("");
+  const [chatInput, setChatInput] = useState("");
   const [stateMessages, setStateMessages] = useState([]);
   const [roomId, setRoomId] = useState(null);
 
@@ -19,18 +20,15 @@ export default function Chat() {
 
   const handleChatSubmit = (e) => {
     e.preventDefault();
-
-    const msg = {
-      message,
-      sender_id: user.id,
-      reciever_id: 2,
-      roomId: 1,
-    };
-
-    privateSocket.emit("private_message", msg);
-
-    // have a private socket disconnect for best coding practices.
-
+    if (message !== "") {
+      const msg = {
+        message,
+        sender_id: user.id,
+        reciever_id: 2,
+        roomId: 1,
+      };
+      privateSocket.emit("private_message", msg);
+    }
     setMessage("");
   };
 
