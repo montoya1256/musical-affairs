@@ -52,7 +52,7 @@ function UserSelect({ artist }) {
 
   useEffect(async () => {
     if (doChat) {
-      await privateSocket.emit("join_room", { roomId });
+      await privateSocket.emit("join_room", { roomId: user.roomId });
       await privateSocket.emit("private_message", user);
       history.push(`/chat/`);
       setDoChat(false);

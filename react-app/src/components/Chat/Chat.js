@@ -10,7 +10,8 @@ export default function Chat() {
   const messages = useSelector((state) => state.messages.messages);
   const user = useSelector((state) => state.session.user);
   const [message, setMessage] = useState("");
-  const [stateMessages, setStateMessages] = useState([]);
+  const [stateMessages, setStateMessages] = useState(messages);
+  const [msgObj, setMsgObj] = useState(null);
 
   useEffect(async () => {
     await dispatch(getMessages(user.sender_id, user.reciever_id));
@@ -19,15 +20,11 @@ export default function Chat() {
   const handleChatSubmit = (e) => {
     e.preventDefault();
     if (message !== "") {
-      const msg = {
-        message,
-        sender_id: user.id,
-        reciever_id: 2,
-        roomId: 1,
-      };
-      privateSocket.emit("private_message", msg);
+      user.message = message;
+
+      privateSocket.emit("private_message", user);
+      setMessage("");
     }
-    setMessage("");
   };
 
   useEffect(() => {
@@ -38,10 +35,18 @@ export default function Chat() {
   }, []);
 
   useEffect(() => {
-    setStateMessages(messages);
-  }, [messages]);
+    if (msgObj === null) {
+      setStateMessages(messages);
+    } else {
+      setStateMessages([...stateMessages, msgObj]);
+    }
+  }, [messages.length, msgObj]);
 
-  console.log(stateMessages);
+  useEffect(() => {
+    privateSocket.on("private_room", (msg) => {
+      setMsgObj(msg);
+    });
+  }, [stateMessages]);
 
   return (
     <div>
