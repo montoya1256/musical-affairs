@@ -2,11 +2,15 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import session from "./session";
 import artistsReducer from "./artists";
+import messageReducer from "./messages";
+import userReducer from "./users";
 import searchReducer from "./search";
 
 const rootReducer = combineReducers({
   session,
   artists: artistsReducer,
+  messages: messageReducer,
+  user: userReducer,
   search: searchReducer,
 });
 

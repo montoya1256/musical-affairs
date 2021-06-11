@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
+from flask_socketio import SocketIO, send, emit
 from flask_socketio import SocketIO, send, emit, join_room, leave_room
 from datetime import datetime
 
@@ -11,13 +12,17 @@ from .models import db, User, Chat
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.artist_routes import artist_routes
+from .api.private_chat_routes import private_message_routes
 from .api.search_routes import search_routes
 
 from .seeds import seed_commands
 
+from .socket import socketio
+
 from .config import Config
 
 app = Flask(__name__)
+# socketio = SocketIO(cors_allowed_origins="*")
 
 if os.environ.get("FLASK_ENV") == "production":
     origins = [
@@ -80,9 +85,12 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix="/api/users")
 app.register_blueprint(auth_routes, url_prefix="/api/auth")
 app.register_blueprint(artist_routes, url_prefix="/api/artists")
+app.register_blueprint(private_message_routes, url_prefix="/api/chat")
 app.register_blueprint(search_routes, url_prefix="/api/search")
 db.init_app(app)
 Migrate(app, db)
+socketio.init_app(app)
+
 
 # Application Security
 CORS(app)
@@ -123,6 +131,23 @@ def react_root(path):
         return app.send_static_file("favicon.ico")
     return app.send_static_file("index.html")
 
+
+# @socketio.on("private_message")
+# def handlePrivateMessage(data):
+#     print("hellooooooo")
+#     print("----------------------------", data)
+#     # time = datetime.now()
+#     # msg = Chat(
+#     #     message=data["message"],
+#     #     sender_id=data["sender_id"],
+#     #     reciever_id=data["reciever_id"],
+#     #     createdAt=time,
+#     #     updatedAt=time,
+#     # )
+#     # db.session.add(msg)
+#     # db.session.commit()
+#     # emit("private_room", msg, to=data["roomId"], namespace="/private")
+#     emit("private_message", data, broadcast=True)
 
 if __name__ == "__main__":
     socketio.run(app)

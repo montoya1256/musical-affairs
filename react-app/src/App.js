@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import RandomArtist from "./components/artists/RandomArtist";
 import FavoriteArtist from "./components/artists/FavoriteArtist";
+import Chat from "./components/Chat/Chat";
 // import { authenticate } from "./services/auth";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
