@@ -1,1 +1,2 @@
-Musical Affairs
+
+Welcome to Musical Affairs!
