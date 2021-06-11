@@ -1,6 +1,6 @@
-from flask import Blueprint, session, request
+from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import Artist, db, favoriteArtists, User
+from app.models import Artist, db, User
 from random import randrange
 from app.forms.like_artist_form import LikeArtistForm
 

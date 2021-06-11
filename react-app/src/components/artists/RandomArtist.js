@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getRandomArtist,
@@ -6,7 +6,6 @@ import {
   showFavorites,
 } from "../../store/artists";
 import "./RandomArtist.css";
-import Button from "react-bootstrap/Button";
 
 function RandomArtist() {
   const dispatch = useDispatch();
@@ -18,7 +17,7 @@ function RandomArtist() {
 
   const handleLike = async (e) => {
     e.preventDefault();
-    await dispatch(addToFavorites(randomArtist.id));
+    await dispatch(addToFavorites(randomArtist.id, randomArtist.name));
     await dispatch(getRandomArtist());
     await dispatch(showFavorites());
   };
@@ -36,9 +35,9 @@ function RandomArtist() {
         <img
           className="randomArtist-image"
           src={randomArtist?.profile_pic}
+          alt={`${randomArtist?.name}`}
         ></img>
         <div className="randomArtist-buttons">
-          {/* <div className="randomArtist-dislike-div"> */}
           <button
             variant="light"
             className="randomArtist-dislike-btn"
@@ -47,8 +46,6 @@ function RandomArtist() {
           >
             <i className="fas fa-times"></i>
           </button>
-          {/* </div> */}
-          {/* <div className="randomArtist-like-div"> */}
           <button
             variant="light"
             className="randomArtist-like-btn"
@@ -57,7 +54,6 @@ function RandomArtist() {
           >
             <i className="fas fa-heart"></i>
           </button>
-          {/* </div> */}
         </div>
       </div>
     </div>

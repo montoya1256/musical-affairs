@@ -33,7 +33,7 @@ function ProfileButton({ user }) {
     // history.go(0) refuses to do that depending on
     // your initial route when server restarts
     // or browser refreshes
-    history.push("/landing");
+    history.push("/");
     history.go(0);
   };
 
@@ -53,7 +53,7 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <Button className="btn btn-dark" onClick={openMenu}>
+      <Button className="btn btn-dark mr-3" onClick={openMenu}>
         <i className="fas fa-cog" />
       </Button>
       {showMenu && (

@@ -8,6 +8,9 @@ import Chat from "./components/Chat/Chat";
 // import { authenticate } from "./services/auth";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import Landing from "./components/Landing/Landing";
+import SearchResults from "./components/SearchResults/SearchResults";
+import Chat from "./components/Chat/Chat";
 
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
@@ -29,9 +32,15 @@ function App() {
     <BrowserRouter>
       <Navigation />
       <Switch>
+        <Route path="/" exact={true}>
+          <Landing />
+        </Route>
         <ProtectedRoute path="/favorites" exact={true}>
           <FavoriteArtist />
           <RandomArtist />
+        </ProtectedRoute>
+        <ProtectedRoute path="/search" exact={true}>
+          <SearchResults />
         </ProtectedRoute>
         <ProtectedRoute path="/chat" exact={true}>
           <Chat />
