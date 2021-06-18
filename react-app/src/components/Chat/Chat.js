@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "../../store/messages";
@@ -65,13 +64,6 @@ export default function Chat() {
           <button type="submit">Send</button>
         </form>
       </div>
-import React from "react";
-import "./Chat.css";
-
-export default function Chat() {
-  return (
-    <div>
-      <h1 style={{ color: "black" }}>CHAT</h1>
     </div>
   );
 }

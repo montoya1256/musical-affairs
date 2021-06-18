@@ -7,7 +7,7 @@ export default function Landing() {
   return (
     <div className="landing-div">
       <div className="landing-center">
-        <h1>Welcome to muscial affaris</h1>
+        <h1>Welcome to Muscial Affairs</h1>
         <div className="landing-desc">
           <h2>
             Are you ready to meet others that like the same artist as you?
